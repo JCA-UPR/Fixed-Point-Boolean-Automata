@@ -125,5 +125,6 @@ int binary_search_for_real_zero(
 int brute_force(const Automata& my_automata);
 
 std::vector<int>& brute_force_composite(const Automata& automata_1);
+Automata& readMatrixFromCSV(const std::string& filePath);
 
 #endif

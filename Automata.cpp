@@ -657,3 +657,43 @@ bool Automata::populate_from_csv() {
 
   return true;
 }
+
+// MatrixXd readMatrixFromCSV(const std::string& filePath) {
+Automata& readMatrixFromCSV(const std::string& filePath) {
+    std::ifstream file(filePath);
+    if (!file.is_open()) {
+        std::cerr << "Error opening file: " << filePath << std::endl;
+        // Return an empty matrix
+        // return Automata();
+    }
+
+    // Read P and N from the first two lines
+    int P, N;
+    file >> P >> N;
+
+    // Initialize matrix with size N x N
+    auto matrix {new Automata(N, N, P)};
+    // MatrixXd matrix(N, N);
+
+    // Read matrix values from the file
+    std::string line;
+    getline(file, line); // Consume the end-of-line character after reading N
+    for (int i = 0; i < N; ++i) {
+        getline(file, line); // Read a line from the file
+        std::stringstream ss(line);
+        std::string cell;
+        for (int j = 0; j < N; ++j) {
+            if (!getline(ss, cell, ',')) {
+                std::cerr << "Error reading value from file." << std::endl;
+                // Return partially filled matrix
+                return *matrix;
+            }
+            int value = std::stoi(cell);
+            (*matrix)(i, j) = value;
+        }
+    }
+
+    file.close();
+
+    return *matrix;
+}

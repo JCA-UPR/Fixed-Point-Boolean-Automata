@@ -77,9 +77,18 @@ bool read_boolean_from_file(const std::string& filename) {
 }
 
 int main() {
-  Automata MyAutomata;
+  Automata MyAutomata {readMatrixFromCSV("example.csv")};
   // MyAutomata.populate_from_user();
-  MyAutomata.populate_from_csv();
+  // MyAutomata.populate_from_csv();
+
+  //   // Display the matrix
+  // std::cout << "Matrix read from CSV file:" << std::endl;
+  // std::cout << "P: " << MyAutomata.get_modulo_field() << std::endl;
+  // std::cout << "N: " << MyAutomata.get_columns() << std::endl;
+
+  // std::cout << MyAutomata << std::endl;
+
+  // Pass the automata to Mat.csv so Python can read it
   std::ofstream ofs("mat.csv", std::ofstream::trunc);
   ofs << MyAutomata;
   ofs.close();
